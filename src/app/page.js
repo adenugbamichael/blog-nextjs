@@ -1,5 +1,9 @@
-import React from 'react'
+import { initDatabase } from '@/db/init'
+import { listAllPosts } from '@/data/posts'
+import { PostList } from '@/components/PostList'
 
-export default function HomePage() {
-  return <strong>Blog home page</strong>
+export default async function HomePage() {
+  await initDatabase()
+  const posts = await listAllPosts()
+  return <PostList posts={posts} />
 }

@@ -1,5 +1,8 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { cookies } from 'next/headers'
+import { getUserInfoByToken } from '@/data/users'
+import { Navigation } from '@/components/Navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -8,10 +11,21 @@ export const metadata = {
   description: 'A blog about React and Next.js',
 }
 
-export default function RootLayout({ children }) {
+async function logoutAction() {
+  'use server'
+  cookies().delete('AUTH_TOKEN')
+}
+
+export default async function RootLayout({ children }) {
+  const token = cookies().get('AUTH_TOKEN')
+  const user = await getUserInfoByToken(token?.value)
   return (
     <html lang='en'>
       <body className={inter.className}>
+        <nav>
+          <Navigation username={user?.username} logoutAction={logoutAction} />
+        </nav>
+        <br />
         <main>{children}</main>
       </body>
     </html>
