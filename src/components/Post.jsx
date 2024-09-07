@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import slug from 'slug'
 
 export function Post({ _id, title, author }) {
   return (
     <article>
       <h3>
-        <Link href={`/posts/${_id}`}>{title}</Link>
+        <Link href={`/posts/${_id}/${slug(title)}`}>{title}</Link>
       </h3>
       <em>
         Written by <strong>{author.username}</strong>

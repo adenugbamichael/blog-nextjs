@@ -1,4 +1,6 @@
 import { Inter } from 'next/font/google'
+import Image from 'next/image'
+import logo from './logo.png'
 import './globals.css'
 import { cookies } from 'next/headers'
 import { getUserInfoByToken } from '@/data/users'
@@ -22,6 +24,12 @@ export default async function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className}>
+        <Image
+          src={logo}
+          alt='Full-Stack Next.js Blog Logo'
+          width={500}
+          height={47}
+        />
         <nav>
           <Navigation username={user?.username} logoutAction={logoutAction} />
         </nav>
